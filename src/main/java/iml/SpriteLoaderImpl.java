@@ -12,7 +12,7 @@ public final class SpriteLoaderImpl extends SpriteLoader {
     public final Image loadImage(String str, int i) {
         Image image = null;
         if (str.equals("/game.anu") && i == 0) {
-            image = ImageLoader.loadImage("/1.png"); // logo
+            image = ImageLoader.loadImage("1.png"); // logo
         }
         return image;
     }

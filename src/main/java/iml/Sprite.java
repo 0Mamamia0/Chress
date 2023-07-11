@@ -7,11 +7,11 @@ import java.util.Vector;
 public final class Sprite {
     public short[] a;
     public short[] b;
-    public short[] c;
-    public short[] d;
+    public short[] position;
+    public short[] coord;
     public short[] e;
-    short[] f;
-    Vector g = new Vector();
+    public short[] f;
+    Vector images = new Vector();
 
     /* JADX INFO: Access modifiers changed from: protected */
     public Sprite(boolean z) {

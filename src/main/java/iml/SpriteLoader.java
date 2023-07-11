@@ -10,9 +10,9 @@ public abstract class SpriteLoader {
     /* renamed from: a */
     public final Sprite loadSprite(String name) {
         try {
-            return a.a(name, false, ImageLoaderImpl.getInstance(), this);
+            return Unkonw.a(name, false, ImageLoaderImpl.getInstance(), this);
         } catch (Exception e) {
-            System.out.println(new StringBuffer("load sprite(").append(name).append(") data error.").toString());
+            System.out.println(name);
             e.printStackTrace();
             return null;
         }

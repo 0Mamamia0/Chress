@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL30;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.IntBuffer;
+import java.util.Arrays;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
@@ -19,6 +20,8 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 
 public class Main {
+
+
 
     public static final int scale = 4;
     public static final int WIDTH = 240 * scale;
@@ -41,6 +44,8 @@ public class Main {
             }
         }
 
+
+
     }
 
     public static void main(String[] args) {
@@ -49,29 +54,40 @@ public class Main {
         if (glfwInit()) {
             glfwDefaultWindowHints();
 //            glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+            glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
             long window = glfwCreateWindow(WIDTH, HEIGHT, "中国象棋-水墨智能版", NULL, NULL);
             if(window != 0) {
                 Renderer renderer = new Renderer();
-//                glfwSetWindowRefreshCallback(window, (w)-> renderer.onRefresh());
-//                glfwSetWindowSizeCallback(window, (w, width, height) -> renderer.onSizeChange(width, height));
-//                glfwSetFramebufferSizeCallback(window, (w, width, height)-> renderer.onFrameBufferSizeChange(width, height));
-//                glfwSetKeyCallback(window, (w, key, scancode, action, mods)-> renderer.onKeyCode(key, scancode, action, mods));
+
+
+
+                glfwSetWindowRefreshCallback(window, (w)-> renderer.onRefresh());
+                glfwSetWindowSizeCallback(window, (w, width, height) -> renderer.onSizeChange(width, height));
+                glfwSetFramebufferSizeCallback(window, (w, width, height)-> renderer.onFrameBufferSizeChange(width, height));
+                glfwSetKeyCallback(window, (w, key, scancode, action, mods)-> renderer.onKeyCode(key, scancode, action, mods));
+                glfwSetCursorPosCallback(window, (w, xpos, ypos) -> renderer.onCursorPos(xpos, ypos));
+                glfwSetMouseButtonCallback(window, (w, button, action ,mods) -> renderer.onMouseButton(button, action, mods));
+
 
                 glfwMakeContextCurrent(window);
-                System.out.println(GL.createCapabilities());
+                glfwSwapInterval(2);
+                GL.createCapabilities();
 
                 renderer.create();
 
                 glfwInvoke(window, (w, width, height) -> renderer.onSizeChange(width, height), (w, width, height)-> renderer.onFrameBufferSizeChange(width, height));
 
 
-
                 while (!glfwWindowShouldClose(window)) {
                     glfwPollEvents();
                     renderer.render();
-
                     glfwSwapBuffers(window);
                 }
+
+                renderer.destroy();
 
                 glfwFreeCallbacks(window);
                 glfwDestroyWindow(window);

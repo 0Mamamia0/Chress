@@ -1,15 +1,26 @@
 package scene;
 
-import io.github.humbleui.skija.Canvas;
 
-public class Scene {
+import ui.Display;
+
+public class Scene extends Group {
 
 
-    public void update() {
-
+    @Override
+    public void show() {
+        super.show();
     }
 
-    public void draw(Canvas canvas) {
+
+    @Override
+    public void hide() {
+        super.hide();
+    }
+
+    public void attach(Display display) {
+    }
+
+    public void detach(Display display) {
 
     }
 }
